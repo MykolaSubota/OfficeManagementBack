@@ -5,6 +5,15 @@ from .serializers import GetWorkerSerializer
 from rest_framework import permissions, generics
 from rest_framework.viewsets import ModelViewSet
 
+class WorkersListView(generics.ListAPIView):
+    """
+        Список працівників
+    """
+    serializer_class = GetWorkerSerializer
+
+    def get_queryset(self):
+        return Worker.objects.all()
+
 class WorkerPublicView(ModelViewSet):
     """Вивід публічного профіля працівника"""
     queryset = Worker.objects.all()

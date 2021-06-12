@@ -6,7 +6,6 @@ class GetWorkerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Worker
         exclude = (
-            "id",
             "password",
             "last_login",
             "is_active",
