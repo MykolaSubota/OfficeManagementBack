@@ -53,7 +53,7 @@ class Task(models.Model):
         verbose_name="Виконавець"
     )
     project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name="Проект", related_name="tasks")
-    deadline = models.DateTimeField("Дедлайн", auto_now_add=True, blank=True, null=True)
+    deadline = models.DateTimeField("Дедлайн", blank=True, null=True)
 
     class Meta:
         verbose_name = "Завдання"
