@@ -4,9 +4,9 @@ from django.conf import settings
 
 class Worker(AbstractUser):
     """Модель працівника"""
-    middle_name = models.CharField('По-батькові', max_length=50)
-    position = models.CharField('Посада', max_length=150)
-    phone = models.CharField(' Номер телефону', max_length=14)
+    middle_name = models.CharField('По-батькові', max_length=150, blank=True, null=True)
+    position = models.CharField('Посада', max_length=150, blank=True, null=True)
+    phone = models.CharField(' Номер телефону', max_length=14, blank=True, null=True)
     avatar = models.ImageField('Фото', upload_to='user/avatar/', blank=True, null=True)
 
 class Salary(models.Model):

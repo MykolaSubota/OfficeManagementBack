@@ -28,9 +28,9 @@ class TimeFixationAdmin(admin.ModelAdmin):
     """
         Фіксації часу
     """
-    list_display = ("task", "date", "begin", "end", "duration")
+    list_display = ("task", "date", "duration")
     list_filter = ("task__title",)
-    readonly_fields = ("task", "date", "begin", "end", "duration")
+    readonly_fields = ("task", "date", "duration")
 
 
 admin.site.site_title = "Менеджмент наукового офісу"
