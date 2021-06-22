@@ -1,9 +1,9 @@
-from rest_framework import permissions, generics
+from rest_framework import permissions, generics, mixins, viewsets
 
-from ..base.classes import CreateUpdateDestroy, CreateRetrieveUpdateDestroy
+from ..base.classes import CreateUpdateDestroy, CreateRetrieveUpdateDestroy, MixedPermission
 from ..base.permissions import IsAuthor, IsPerformer
 from .models import Project, Task, TimeFixation
-from .serializers import ProjectSerializer, CreateTaskSerializer, CreateTimeFixationSerializer
+from .serializers import ProjectSerializer, CreateTaskSerializer, CreateTimeFixationSerializer, ListTasksSerializer
 
 class ProjectListView(generics.ListAPIView):
     """
@@ -35,6 +35,14 @@ class ProjectView(CreateRetrieveUpdateDestroy):
         except KeyError:
             return [permission() for permission in self.permission_classes]
 
+class TaskListView(mixins.RetrieveModelMixin, MixedPermission, viewsets.GenericViewSet):
+    """
+        Створення, редагування, видалення завдань
+    """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Task.objects.all()
+    serializer_class = ListTasksSerializer
+    permission_classes_by_action = {'get': [permissions.AllowAny]}
 
 class TaskView(CreateUpdateDestroy):
     """
