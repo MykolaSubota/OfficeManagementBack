@@ -68,7 +68,10 @@ class TimeFixation(models.Model):
     """
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="timer_fixations", verbose_name="Назва")
     date = models.DateField("Дата", auto_now_add=True)
+    start = models.TimeField("Початок", auto_now_add=True)
+    stop = models.TimeField("Кінець", auto_now=True)
     duration = models.TimeField("Тривалість", blank=True, null=True)
+
     class Meta:
         verbose_name = "Фіксація часу"
         verbose_name_plural = "Фіксації часу"

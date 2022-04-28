@@ -1,9 +1,10 @@
-version: '3.8'
+version: '3.9'
 
 services:
   management_back:
     build: ./
-    command: python manage.py runserver 0.0.0.0:8000
+    command:
+      -python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/usr/src/app/
     ports:

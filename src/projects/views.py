@@ -3,7 +3,7 @@ from rest_framework import permissions, generics, mixins, viewsets
 from ..base.classes import CreateUpdateDestroy, CreateRetrieveUpdateDestroy, MixedPermission
 from ..base.permissions import IsAuthor, IsPerformer
 from .models import Project, Task, TimeFixation
-from .serializers import ProjectSerializer, CreateTaskSerializer, CreateTimeFixationSerializer, ListTasksSerializer
+from .serializers import ProjectSerializer, CreateTaskSerializer, CreateTimeFixationSerializer, ListTasksSerializer, GetProjectSerializer
 
 class ProjectListView(generics.ListAPIView):
     """
@@ -14,8 +14,17 @@ class ProjectListView(generics.ListAPIView):
     def get_queryset(self):
         return Project.objects.all()
 
+class GetProjectView(mixins.RetrieveModelMixin, MixedPermission, viewsets.GenericViewSet):
+    """
+        Вивід проекту
+    """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Project.objects.all()
+    serializer_class = GetProjectSerializer
+    permission_classes_by_action = {'get': [permissions.AllowAny]}
 
-class ProjectView(CreateRetrieveUpdateDestroy):
+
+class ProjectView(CreateUpdateDestroy):
     """
         Створення, редагування, видалення проектів
     """
